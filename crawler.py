@@ -23,10 +23,17 @@ class InfoExtractor:
         title = self.soup_elem.find('div', class_="gsc_prf_il")
         if title != None:
             self.info['title'] = title.get_text()
-
+    
+    def __extract_avatar(self):
+        container = self.soup_elem.find('div', id="gsc_prf_pua")
+        img = container.find('img')
+        if img != None:
+            self.info['avatar'] = f"{img['src']}"
+        
     def __extract_info(self):
         self.__extract_name()
         self.__extract_title()
+        self.__extract_avatar()
         
     def is_valid(self):
         pass    
